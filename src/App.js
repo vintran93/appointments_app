@@ -1,18 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        
-      </header>
+    <div>
+      {/* <Sidebar />
+      <main>
+        <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/doctors" element={<DoctorsContainer />} /> 
+          <Route path="/doctors/:id" element={<Doctor />} /> 
+          <Route path="/appointments" element={<AppointmentsContainer/>} /> 
+          <Route path="/appointments/new" element={<NewAppointment />} /> 
+          <Route path="/appointments/:id" element={<Appointment />} /> 
+        </Routes>
+      </main> */}
+      Hello World
     </div>
   );
-}
+};
 
 export default App;
