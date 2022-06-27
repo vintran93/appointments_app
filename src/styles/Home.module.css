@@ -1,0 +1,32 @@
+.Home {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  background-image: url('https://revcycleintelligence.com/images/site/article_headers/_normal/hospital%2C_green.jpg');
+  height: 100vh;
+  color: white;
+  margin-top: -100px;
+}
+
+.Overlay {
+  background: rgba(61, 71, 216, 0.7);
+  overflow: hidden;
+  height: 100%;
+  z-index: 2;
+}
+
+.Button {
+  background-color: white;
+  padding: 10px;
+  color: rgb(43, 115, 223);
+  border-radius: 30px;
+}
+
+.Select {
+  padding: 10px;
+  outline: none;
+  border: 1px solid white;
+  color: white;
+  background-color: rgb(43, 115, 223);
+}
