@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import appointmentActions from '../actions/appointmentActions';
+import doctorActions from '../actions/doctorActions';
+import { connect } from 'react-redux';
 
 function AppointmentsList ()  {
   // initialize content, and loading state variable
   const [content, setContent] = useState('');
-  const [loading, setLoading] = useState(true); // finish buffering
+  const [loading, setLoading] = useState(true); // finish loading/buffering
   const { user: currentUser } = useSelector(state => state.auth);
   let appointments;
 
   // use effect for obtaining appointments list
   useEffect(() => {
     if (currentUser) {
-      appointmentActions.getAppointments(currentUser.user.id)
+      doctorActions.getAppointments(currentUser.user.id)
       .then(response => {setLoading(false);
           setContent(response.data);
       },
@@ -34,7 +35,8 @@ function AppointmentsList ()  {
       <h4>
         You do not have any appointments yet. Schedule one
         <Link to="/appointments/new">
-        &nbsp; here.
+        &nbsp; here. 
+        {/* Non-breaking space */}
         </Link>
       </h4>
     );
@@ -54,6 +56,7 @@ function AppointmentsList ()  {
         </Link>
       );
     });
+    
   }
 
   return (
@@ -66,7 +69,13 @@ function AppointmentsList ()  {
   );
 };
 
-export default AppointmentsList;
+// export default AppointmentsList;
+
+const mapStateToProps = state => {
+  return { appointments: state.appointments}
+}
+
+export default connect(mapStateToProps)(AppointmentsList);
 
 // https://reactjs.org/docs/hooks-state.html
 // https://reactjs.org/docs/hooks-rules.html

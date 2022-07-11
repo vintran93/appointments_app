@@ -68,3 +68,35 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+- The code is written in ES6 as much as possible
+
+- create-react-app was used to create your React app
+
+- There are 2 container components (stateful/class)
+    1. DoctorsContainer.js
+    2. AppointmentsContainer.js
+    3. App.js
+
+- There are 5 stateless components (presentational)
+    1. Appointment.js
+    2. Home.js
+    3. AppointmentsList.js
+    4. Sidebar.js
+    5. DoctorsList.js
+    6. Doctor.js
+
+- There are 3 routes
+
+- react-router is being used with proper RESTful routing
+
+- Redux and redux-thunk middleware are being used to modify state change and make use of async actions to send data and receive data from the server
+
+- Use of Rails API backend to persist data for the application
+
+- Good understanding of the react/redux state flow
+
+- Good understanding of state and props in React
+
+- Knowledge of async JS with Promises

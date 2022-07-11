@@ -7,6 +7,7 @@ import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { login } from '../actions/auth';
 
+
 const required = value => {
   if (!value) {
     return (
@@ -19,6 +20,8 @@ const required = value => {
 };
 
 function Login() {
+  // allows you to persist values between renders
+  // It can be used to store a mutable value that does not cause a re-render when updated
   const form = useRef();
   const checkBtn = useRef();
 
@@ -26,19 +29,37 @@ function Login() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Allows you to extract data from the Redux store state, using a selector function
   const { isLoggedIn } = useSelector(state => state.auth);
   const { message } = useSelector(state => state.message);
+
   const alert = useAlert();
+  // This hook returns a reference to the dispatch function from the Redux store. 
+  // You may use it to dispatch actions as needed.
   const dispatch = useDispatch();
 
   const onChangeEmail = e => {
-    const email = e.target.value;
-    setEmail(email);
+    const emailInput = e.target.value;
+    setEmail(emailInput);
+    // console.log(email)
+    // state has not finished updating yet when running console.log
+    // updating state in react is asynchronous, not immediately updated or we have not finished waiting for the update
+    // asynchronous means we are seeing the previous state each time there is an input
+    // if react was synchronous, it may lead to problems such as bad user experience or browswer lock ups
+    // updating state in react asynchronous, not immediately updated
+    // rerendering is expensive operation
+    // asynchronous , seeing previous state each time input
+    // https://reactjs.org/docs/state-and-lifecycle.html
+    // https://reactjs.org/docs/hooks-state.html
   };
 
+  
+  
+
   const onChangePassword = e => {
-    const password = e.target.value;
-    setPassword(password);
+    const passwordValue = e.target.value;
+    setPassword(passwordValue);
+    // console.log(password) 
   };
 
   const handleLogin = e => {
@@ -90,7 +111,9 @@ function Login() {
               onChange={onChangeEmail}
               validations={[required]}
             />
-          </div>
+          </div> 
+          {/* controlled input value is tied to state of component */}
+          {/* uncontrolled input value tied to the DOM */}
 
           <div className="form-group">
             <label htmlFor="password">Password</label>

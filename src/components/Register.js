@@ -109,7 +109,7 @@ const Register = () => {
   
   if (successful) {
     return <Navigate to="/doctors" />;
-  }
+  } 
 
   return (
     <div className="col-md-12">

@@ -11,7 +11,11 @@ export default function user(state = { doctors: [] }, action) {
       return {
         ...state,
         doctors: payload.doctors,
+        // return new object to know when to update state
       };
+
+      // state.doctors = payload.doctors vs updating current state object
+      // when return from reducer redux checks for same object to know to object
     case DOCTORS_FAIL:
       return {
         ...state,

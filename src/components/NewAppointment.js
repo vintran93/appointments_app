@@ -5,9 +5,10 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { useAlert } from 'react-alert';
-import appointmentActions from '../actions/appointmentActions';
+import doctorActions from '../actions/doctorActions';
 import { setMessage } from '../actions/message';
-import getDoctors from '../actions/user';
+import getDoctors from '../actions/doctor';
+
 
 const required = value => {
   if (!value) {
@@ -62,15 +63,13 @@ function NewAppointment() {
     setAppointmentDate(appointmentDate);
   };
 
-  const handleRegister = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
     setSuccessful(false);
 
-    form.current.validateAll();
-
     if (checkBtn.current.context._errors.length === 0) {
-      appointmentActions.postAppointment(currentUser.user.id, doctorId, appointmentDate)
+      doctorActions.postAppointment(currentUser.user.id, doctorId, appointmentDate)
         .then(() => {
           setLoading(false);
           setSuccessful(true);
@@ -105,7 +104,7 @@ function NewAppointment() {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <Form onSubmit={handleRegister} ref={form}>
+        <Form onSubmit={handleSubmit} ref={form}>
           {!successful && (
             <div>
               <div className="form-group">

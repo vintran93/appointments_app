@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import doctorActions from '../actions/doctorsActions';
 import classes from '../styles/Doctor.module.css';
+import doctorActions from '../actions/doctorActions';
 
 function Doctor() {
   const [doctor, setDoctor] = useState('');
-  const { id } = useParams(); //obtain doctor info by id
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
 
   useEffect(() => {
     doctorActions.getDoctor(id)
     .then(response => {
+        setLoading(false);
         setDoctor(response.data);
     },
     error => {
-      const message = (error.response.data.message)
+      setLoading(false);
+      const message = (error.response
+          && error.response.data
+          && error.response.data.message)
       setDoctor(message);
     },
-    )}, [id]);
+    );
+  }, [id]);
 
   return (
     <div className="container">
-      {/* <div className="text-center">
+      <div className="text-center">
         {loading && <span className="spinner-border spinner-border-lg" />}
-      </div> */}
+      </div>
       <div className={classes.Doctor}>
         <img src={doctor.image} className={classes.doctorImg} alt=''/>
         <div>
@@ -63,4 +69,3 @@ function Doctor() {
 };
 
 export default Doctor;
-

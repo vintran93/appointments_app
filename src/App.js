@@ -29,7 +29,6 @@ function App () {
           <Route path="/appointments/:id" element={<Appointment />} /> 
         </Routes>
       </main>
-      Hello World
     </div>
   );
 };

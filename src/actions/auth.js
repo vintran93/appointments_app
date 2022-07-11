@@ -25,11 +25,7 @@ import {
     },
     error => {
       console.log(error.response);
-      const message = (error.response
-            && error.response.data
-            && error.response.data.message)
-          || error.message
-          || error.toString();
+      const message = (error.response);
       dispatch({
         type: REGISTER_FAIL,
       });
@@ -53,11 +49,7 @@ import {
       return Promise.resolve();
     },
     error => {
-      const message = (error.response
-            && error.response.data
-            && error.response.data.message)
-          || error.message
-          || error.toString();
+      const message = (error.response);
       dispatch({
         type: LOGIN_FAIL,
       });

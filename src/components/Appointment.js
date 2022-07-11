@@ -2,23 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Navigate, useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import appointmentActions from '../actions/appointmentActions';
-import doctorsActions from '../actions/doctorsActions';
+// import doctorActions from '../actions/doctorActions';
+import doctorActions from '../actions/doctorActions';
 import moment from 'moment';
 import classes from '../styles/Doctors.module.css';
 
 function Appointment() {
+  // What does useState return? 
+  // It returns a pair of values: the initial current state and a function that updates it. 
   const [appointment, setAppointment] = useState('');
   const [doctor, setDoctor] = useState('');
   const [loading, setLoading] = useState(true);
   const [successful, setSuccessful] = useState(false);
   const [error, setError] = useState(false);
+  
+  // useSelector allows you to extract data from the Redux store state, using a selector function
   const { user: currentUser } = useSelector(state => state.auth);
   const alert = useAlert();
+
+  // The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>. 
+  // Child routes inherit all params from their parent routes.
+  // direct user to a new Route from the current URL
+  // access the parameters of the current route
   const { id } = useParams();
   
+  //  lets you perform side effects in function components
+  //  tell React that your component needs to do something after render
   useEffect(() => {
-    appointmentActions.getAppointment(currentUser.user.id, id)
+    doctorActions.getAppointment(currentUser.user.id, id)
       .then(response => {
         setAppointment(response.data);
         return response.data.doctor_id;
@@ -29,16 +40,17 @@ function Appointment() {
         const message = (error.response);
         setAppointment(message);
       },
-    ).then(doctorId => doctorsActions.getDoctor(doctorId))
+    ).then(doctorId => doctorActions.getDoctor(doctorId))
       .then(response => {
         setLoading(false);
         setDoctor(response.data);
       });
-  }, [currentUser.user.id, id]);
+  }, [currentUser.user.id, id]); // dependencies inside dependecy array; Run the side effect any time the variable(s) change
   
   const handleSubmit = () => {
-    setLoading(true);
-    appointmentActions.deleteAppointment(currentUser.user.id, id).then(() => {
+    setLoading(true); //set buffering signal until data is loaded
+    doctorActions.deleteAppointment(currentUser.user.id, id)
+    .then(() => {
       alert.show('Appointment Deleted', {
         type: 'success',
         timeout: 5000,
