@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useAlert } from 'react-alert';
+import { useAlert } from 'react-alert'; //package for making alerts
 // import doctorActions from '../actions/doctorActions';
 import doctorActions from '../actions/doctorActions';
 import moment from 'moment';
@@ -15,20 +15,29 @@ function Appointment() {
   const [loading, setLoading] = useState(true);
   const [successful, setSuccessful] = useState(false);
   const [error, setError] = useState(false);
+
+
+  // ** component localized, global variable, useState sets variable name to represent, second variable will change
+  // when calling setter, automatically tells component reload what is displaying
+  // global variables is always watching for any changing variables when 
   
   // useSelector allows you to extract data from the Redux store state, using a selector function
-  const { user: currentUser } = useSelector(state => state.auth);
+
+
+  const { user: currentUser } = useSelector(state => state.auth); //making user part of state, make auth part of state
   const alert = useAlert();
 
   // The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>. 
   // Child routes inherit all params from their parent routes.
   // direct user to a new Route from the current URL
   // access the parameters of the current route
-  const { id } = useParams();
+
+  const { id } = useParams(); // helps pull id from URL
   
   //  lets you perform side effects in function components
   //  tell React that your component needs to do something after render
-  useEffect(() => {
+  
+  useEffect(() => { //trigger in component when something changes do this
     doctorActions.getAppointment(currentUser.user.id, id)
       .then(response => {
         setAppointment(response.data);

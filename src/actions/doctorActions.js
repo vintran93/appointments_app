@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/';
 
-const getDoctors = () => axios.get(`${API_URL}api/v1/doctors`, { headers: authHeader() });
+// const getDoctors = () => axios.get(`${API_URL}api/v1/doctors`, { headers: authHeader() });
 const getDoctor = id => axios.get(`${API_URL}api/v1/doctors/${id}`, { headers: authHeader() });
 
 const getAppointments = id => axios.get(`${API_URL}api/v1/users/${id}/appointments`, { headers: authHeader() });
@@ -17,6 +17,9 @@ export const fetchDoctors = () => {
         .then(resp => resp.json())
         // .then(doctors => console.log('fetchDoctors', doctors))
         .then(doctors => dispatch({ type: 'FETCH_DOCTORS', payload: doctors}))
+        // .catch(() => {
+        //     dispatch(setMessage('Unable to get doctors list'));
+        // });
     }
 }
 
@@ -24,13 +27,13 @@ export const fetchAppointments = id => {
     return (dispatch) => {
         fetch(`${API_URL}api/v1/users/${id}/appointments`, { headers: authHeader() })
         .then(resp => resp.json())
-        .then(appointments => console.log('fetchAppointments', appointments))
-        // .then(appointments => dispatch({ type: 'FETCH_APPOINTMENTS', payload: appointments}))
+        // .then(appointments => console.log('fetchAppointments', appointments))
+        .then(appointments => dispatch({ type: 'FETCH_APPOINTMENTS', payload: appointments}))
     }
 }
 
 const doctorActions = {
-    getDoctors,
+    // getDoctors,
     getDoctor,
     getAppointments,
     getAppointment,

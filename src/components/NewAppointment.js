@@ -7,7 +7,9 @@ import CheckButton from 'react-validation/build/button';
 import { useAlert } from 'react-alert';
 import doctorActions from '../actions/doctorActions';
 import { setMessage } from '../actions/message';
-import getDoctors from '../actions/doctor';
+// import getDoctors from '../actions/doctor';
+import {fetchDoctors} from '../actions/doctorActions';
+import { connect } from 'react-redux';
 
 
 const required = value => {
@@ -21,7 +23,7 @@ const required = value => {
   return null;
 };
 
-function NewAppointment() {
+function NewAppointment(props) {
   const form = useRef();
   const checkBtn = useRef();
   const { user: currentUser } = useSelector(state => state.auth);
@@ -31,7 +33,7 @@ function NewAppointment() {
   const [loading, setLoading] = useState(false);
   const [loadingDoctors, setLoadingDoctors] = useState(false);
   const { message } = useSelector(state => state.message);
-  const { doctors } = useSelector(state => state.user);
+  // const { doctors } = useSelector(state => state.user);
   const dispatch = useDispatch();
   const alert = useAlert();
   
@@ -41,17 +43,16 @@ function NewAppointment() {
     } else {
       setDoctorId(1)
     }
-    if (doctors.length === 0 && currentUser) {
+    if (props.doctors.length === 0 && currentUser) {
       setLoadingDoctors(true);
-      dispatch(getDoctors())
-        .then(() => {
+      dispatch(fetchDoctors())
           setLoadingDoctors(false);
-        })
-        .catch(() => {
-          dispatch(setMessage('Unable to get doctors list'));
-        });
+        
+        // .catch(() => {
+        //   dispatch(setMessage('Unable to get doctors list'));
+        // });
     }
-  }, [currentUser, doctorId, doctors, dispatch]);
+  }, [currentUser, doctorId, props.doctors, dispatch]);
 
   const onChangeDoctorId = e => {
     const doctorId = e.target.value;
@@ -87,7 +88,7 @@ function NewAppointment() {
       setLoading(false);
     }
   };
-  const selection = doctors.map(doctor => (
+  const selection = props.doctors.map(doctor => (
     <option key={doctor.id} value={doctor.id}>
       {doctor.name} - {doctor.specialty}
     </option>
@@ -149,4 +150,10 @@ function NewAppointment() {
   );
 };
 
-export default NewAppointment;
+// export default NewAppointment;
+
+const mapStateToProps = state => {
+  return { doctors: state.doctors}
+}
+
+export default connect(mapStateToProps)(NewAppointment);

@@ -22,7 +22,7 @@ function Doctor() {
       setDoctor(message);
     },
     );
-  }, [id]);
+  }, [id]); // change when id of URL changed
 
   return (
     <div className="container">

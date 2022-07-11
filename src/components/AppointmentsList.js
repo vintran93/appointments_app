@@ -24,7 +24,7 @@ function AppointmentsList ()  {
         setContent(message);
       },
     );
-  }}, [currentUser]);
+  }}, [currentUser]); // if different user is changed, new appointments are fetched
 
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -64,7 +64,7 @@ function AppointmentsList ()  {
       {loading && <span className="spinner-border spinner-border-lg" />}
       <div className="d-flex flex-wrap">
         {appointments}
-      </div>
+      </div> 
     </div>
   );
 };
